@@ -45,11 +45,15 @@ def make_message(input, list_item_sep=DEFAULTS["separator"]):
         final_message+=make_message(input(), list_item_sep=list_item_sep)
 
     elif type(input)==list:
+        first_item = True
         for item in input:
             if type(item)==Specialsep: # this exception has to exist because of how utils.py functions operate
                 list_item_sep=item.separator
                 continue
-            final_message+=make_message(item, list_item_sep=list_item_sep)+list_item_sep
+            if not first_item:
+                final_message += list_item_sep
+            final_message += make_message(item, list_item_sep=list_item_sep)
+            first_item = False
     else:
         final_message+=str(input)
 
