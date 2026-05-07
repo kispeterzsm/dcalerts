@@ -117,14 +117,15 @@ def notify(func=None, dcalerts_settings=None):
         def decorator(f):
             @wraps(f)
             def wrapper(*args, **kwargs):
-                # Get settings from kwargs if present, otherwise use empty dict
-                settings = kwargs.pop("dcalerts_settings", DEFAULTS)
+                # Get settings from kwargs if present, otherwise use only decorator settings
+                settings = kwargs.pop("dcalerts_settings", None)
 
                 # Combine settings with priority to explicitly passed kwargs
                 effective_settings = {}
                 if _settings is not None:
                     effective_settings.update(_settings)
-                effective_settings.update(settings)
+                if settings is not None:
+                    effective_settings.update(settings)
 
                 # Make sure webhook exists
                 if "webhook" not in effective_settings:
