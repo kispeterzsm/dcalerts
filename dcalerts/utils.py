@@ -74,19 +74,19 @@ def mention(user_id:str):
     """
     Mentions a user.
     """
-    return [Specialsep(""), "@", user_id]
+    return [Specialsep(""), "<@", user_id, ">"]
 
 def channel_mention(channel_id:str):
     """
     Mentions a channel.
     """
-    return [Specialsep(""), "#", channel_id]
+    return [Specialsep(""), "<#", channel_id, ">"]
 
 def role_mention(role_id:str):
     """
     Mentions a role.
     """
-    return [Specialsep(""), "@", role_id]
+    return [Specialsep(""), "<@&", role_id, ">"]
 
 def emoji(emoji_id:str):
     """
