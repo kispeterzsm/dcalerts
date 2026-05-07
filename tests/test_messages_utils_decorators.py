@@ -13,12 +13,12 @@ class MessageFormattingTests(unittest.TestCase):
 
         message = make_message(["start", dynamic, None], list_item_sep="|")
 
-        self.assertEqual(message, "start|nested|42||None|")
+        self.assertEqual(message, "start|nested|42|None")
 
     def test_make_message_honors_special_separator_from_utils(self):
         message = make_message(["Result:", utils.bold("ok"), utils.inline_code("x")])
 
-        self.assertEqual(message, "Result: **ok** `x` ")
+        self.assertEqual(message, "Result: **ok** `x`")
 
 
 class UtilsFormattingTests(unittest.TestCase):
@@ -59,7 +59,7 @@ class WebhookSendingTests(unittest.TestCase):
         send_message("https://discord.test/webhook", ["hello", "world"], list_item_sep="\n")
 
         post.assert_called_once_with(
-            "https://discord.test/webhook", json={"content": "hello\nworld\n"}
+            "https://discord.test/webhook", json={"content": "hello\nworld"}
         )
         post.return_value.raise_for_status.assert_called_once_with()
 
@@ -77,7 +77,7 @@ class WebhookSendingTests(unittest.TestCase):
         MessageHandler("https://discord.test/handler").send(["a", "b"])
 
         post.assert_called_once_with(
-            "https://discord.test/handler", json={"content": "a b "}
+            "https://discord.test/handler", json={"content": "a b"}
         )
         post.return_value.raise_for_status.assert_called_once_with()
 
@@ -103,7 +103,7 @@ class NotifyDecoratorTests(unittest.TestCase):
         self.assertEqual(post.call_count, 2)
         post.assert_any_call("https://discord.test/decorator", json={"content": "before"})
         post.assert_any_call(
-            "https://discord.test/decorator", json={"content": "after|done|"}
+            "https://discord.test/decorator", json={"content": "after|done"}
         )
 
     @patch("dcalerts.messages.requests.post")
@@ -134,7 +134,7 @@ class NotifyDecoratorTests(unittest.TestCase):
 
         post.assert_called_once_with(
             "https://discord.test/decorator",
-            json={"content": "failed ```\nRuntimeError: boom``` "},
+            json={"content": "failed ```\nRuntimeError: boom```"},
         )
 
 
