@@ -37,9 +37,9 @@ class UtilsFormattingTests(unittest.TestCase):
             (utils.quote("x"), "> x"),
             (utils.block_quote("x"), ">>> x"),
             (utils.link("site", "https://example.com"), "[site](https://example.com)"),
-            (utils.mention("123"), "@123"),
-            (utils.channel_mention("456"), "#456"),
-            (utils.role_mention("789"), "@789"),
+            (utils.mention("123"), "<@123>"),
+            (utils.channel_mention("456"), "<#456>"),
+            (utils.role_mention("789"), "<@&789>"),
             (utils.emoji("wave"), ":wave:"),
             (utils.header("Title", level=2), "## Title"),
         ]
